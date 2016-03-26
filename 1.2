@@ -1,0 +1,35 @@
+/*
+ *  Character duplication in string, Solution O(N)
+ *
+ */
+
+#include <iostream>
+#include <string>
+#include <conio.h>
+using namespace std;
+
+bool dupCharacterCheck(string temp)
+{
+	int arr[256] = { 0 };
+	if (temp.length() == 0)
+		return false;
+	for (int i = 0; i < temp.length(); i++)
+		if (arr[temp[i]] == 1)
+			return true;
+		else
+			arr[temp[i]] = 1;
+	return false;
+}
+
+int main()
+{
+	string temp = "Tanuja";
+	bool check = false;
+	check = dupCharacterCheck(temp);
+	if (check)
+		cout << "Duplicate Character Present";
+	else
+		cout << "Not Present";
+	_getch();
+
+}

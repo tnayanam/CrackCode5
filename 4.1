@@ -1,0 +1,35 @@
+/*
+ *  Add %20 in a given string, Solution O(N)
+ *
+ */
+
+#include <iostream>
+#include <string>
+#include <conio.h>
+
+using namespace std;
+string addElem(string temp1)
+{
+	string temp2;
+	temp2.reserve(temp1.length());
+
+	/*std::cout << temp2.length();
+    temp2[0] = 'e';
+	temp2[1] = 'd';*/
+
+	for (int i = 0; i < temp1.length(); i++)
+		if (temp1[i] == ' ')
+		{
+			temp2 = temp2 + "%20";
+		}
+		else
+			temp2 = temp2 + temp1[i];
+	return temp2;
+}
+
+int main()
+{
+	string temp1 = "Tanuj is a good boy";
+	cout <<	addElem(temp1);
+	_getch();
+}
