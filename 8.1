@@ -1,0 +1,28 @@
+/*
+ * String rotation matching O(N)
+ *
+ */
+
+#include <iostream>
+#include <string>
+#include <conio.h>
+using namespace std;
+
+bool isRotated(string original, string check)
+{
+	string newtemp = check + check;
+	if (original.length() != check.length())
+		return false;
+	if (newtemp.find(original) != string::npos)
+		return true;
+	else return false;
+}
+
+int main()
+{
+	string original = "helloworld";
+	string check = "worldhello";
+	isRotated(original, check) ? cout << "Yes" : cout << "No";
+
+	_getch();
+}
