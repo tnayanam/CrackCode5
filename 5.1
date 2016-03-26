@@ -1,0 +1,31 @@
+/*
+ * String Compression O(N)
+ *
+ */
+
+#include <iostream>
+#include <string>
+#include <conio.h>
+using namespace std;
+int main()
+{
+	string temp = "abbcdaab"; 
+	string temp2;
+	if (temp.length() == 0)
+		return;
+	int count = 1;
+	temp2 = temp[0];
+	for (int i = 1; i < temp.length(); i++)
+	{
+		if (temp[i] == temp[i -1])
+			count++;
+		else
+		{
+			temp2 = temp2 + to_string(count) +temp[i];   
+			count = 1;
+		}
+	}
+	temp2 = temp2 + to_string(count);
+	cout << temp2;
+	_getch();
+}
