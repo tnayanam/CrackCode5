@@ -1,5 +1,3 @@
-// O(N) provided if length is known
-
 #include <iostream>
 #include<unordered_map>
 
@@ -17,7 +15,7 @@ public:
        	~linklist();
 		void addElem(int num);
 		void display();
-		void findKthFromLast(int k, int length);
+		void removeDup();
 };
 
 linklist::linklist()
@@ -30,7 +28,6 @@ linklist::~linklist()
 
 }
 
-// add element to linklist
 void linklist::addElem(int num)
 {
 	Node *temp = new Node;
@@ -45,7 +42,6 @@ void linklist::addElem(int num)
 	}
 }
 
-// display
 void linklist::display()
 {
 	Node *temp;
@@ -57,26 +53,42 @@ void linklist::display()
 	}
 }
 
-// find kth from last
-void linklist::findKthFromLast(int k, int length)
+// remove duplicate
+void linklist::removeDup()
 {
-	Node *temp = head;
-	for (int i = 0; i < length - k; i++)
+	Node *temp;
+	unordered_map <int, int> m1;
+	temp = head;
+	Node *old = head;
+	while (temp != NULL)
+	{
+		if (m1.find(temp->data) != m1.end())
+		{
+			old->next = temp->next;
+			temp = old;
+		
+		}
+		else
+			m1[temp->data] = temp->data;
+		old = temp;
 		temp = temp->next;
-	cout << "\nElement is " << temp->data;
+	}
+
+
+
+
 }
 
 int main()
 {
-	int ch = 1, k, num;
+	int ch = 1, num;
 	bool operate = true;
 	linklist l1;
-	int length = 10;
 
 	while (operate)
 	{
 		cout << "\n1. Add Element\n";
-		cout << "2. enter the value of k";
+		cout << "2. Remove Duplicate\n";
 		cout << "3. Display\n";
 		cout << "4. Exit\n";
 		cout << "4. Enter your choice:\n";
@@ -89,8 +101,8 @@ int main()
 			l1.addElem(num);
 			break;
 		case 2:
-			cin >> k;
-			l1.findKthFromLast(k,length);
+			cout << "Removing duplicate\n";
+			l1.removeDup();
 			break;
 		case 3:
 			cout << "Displaying..\n";

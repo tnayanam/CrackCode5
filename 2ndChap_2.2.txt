@@ -1,4 +1,4 @@
-// O(N) provided if length is known
+// O(N) provided if length is unknown
 
 #include <iostream>
 #include<unordered_map>
@@ -12,12 +12,14 @@ class linklist
 		int data;
 		Node *next;
 	}*head;
+	int count = 0;
 public:
 		linklist();
        	~linklist();
 		void addElem(int num);
 		void display();
-		void findKthFromLast(int k, int length);
+		void findKthFromLast(int k);
+		int traverse(Node *temp, int k);
 };
 
 linklist::linklist()
@@ -55,15 +57,27 @@ void linklist::display()
 		cout << temp->data << " "; 
 		temp = temp->next;
 	}
+
 }
 
+// recursively traverse
+int linklist::traverse(Node *temp,int k)
+{
+	if (temp == NULL)
+		return 0;
+	count = traverse(temp->next,k) + 1;
+	if (count == k)
+		cout << temp->data;
+	return count;
+	
+}
+
+
 // find kth from last
-void linklist::findKthFromLast(int k, int length)
+void linklist::findKthFromLast(int k)
 {
 	Node *temp = head;
-	for (int i = 0; i < length - k; i++)
-		temp = temp->next;
-	cout << "\nElement is " << temp->data;
+	traverse(temp,k);
 }
 
 int main()
@@ -71,8 +85,6 @@ int main()
 	int ch = 1, k, num;
 	bool operate = true;
 	linklist l1;
-	int length = 10;
-
 	while (operate)
 	{
 		cout << "\n1. Add Element\n";
@@ -90,7 +102,7 @@ int main()
 			break;
 		case 2:
 			cin >> k;
-			l1.findKthFromLast(k,length);
+			l1.findKthFromLast(k);
 			break;
 		case 3:
 			cout << "Displaying..\n";
