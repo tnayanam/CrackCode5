@@ -1,0 +1,119 @@
+#include <iostream>
+#include<unordered_map>
+
+using namespace std;
+
+class linklist
+{
+	struct Node
+	{
+		int data;
+		Node *next;
+	}*head;
+public:
+		linklist();
+       	~linklist();
+		void addElem(int num);
+		void display();
+		void removeDup();
+};
+
+linklist::linklist()
+{
+	head = NULL;
+}
+
+linklist::~linklist()
+{
+
+}
+
+void linklist::addElem(int num)
+{
+	Node *temp = new Node;
+	temp->data = num;
+	temp->next = NULL;
+	if (head == NULL)
+		head = temp;
+	else
+	{
+		temp->next = head;
+		head = temp;
+	}
+}
+
+void linklist::display()
+{
+	Node *temp;
+	temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->data << " "; 
+		temp = temp->next;
+	}
+}
+
+// remove duplicate
+void linklist::removeDup()
+{
+	Node *temp;
+	unordered_map <int, int> m1;
+	temp = head;
+	Node *old = head;
+	while (temp != NULL)
+	{
+		if (m1.find(temp->data) != m1.end())
+		{
+			old->next = temp->next;
+			temp = old;
+		
+		}
+		else
+			m1[temp->data] = temp->data;
+		old = temp;
+		temp = temp->next;
+	}
+
+
+
+
+}
+
+int main()
+{
+	int ch = 1, num;
+	bool operate = true;
+	linklist l1;
+
+	while (operate)
+	{
+		cout << "\n1. Add Element\n";
+		cout << "2. Remove Duplicate\n";
+		cout << "3. Display\n";
+		cout << "4. Exit\n";
+		cout << "4. Enter your choice:\n";
+		cin >> ch;
+		switch (ch)
+		{
+		case 1:
+			cout << "Enter the number in the linklist\n";
+			cin >> num;
+			l1.addElem(num);
+			break;
+		case 2:
+			cout << "Removing duplicate\n";
+			l1.removeDup();
+			break;
+		case 3:
+			cout << "Displaying..\n";
+			l1.display();
+			break;
+		case 4:
+			operate = false;
+			break;
+		default:
+			exit(0);
+		}
+	}
+
+}
