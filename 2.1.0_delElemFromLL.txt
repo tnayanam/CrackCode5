@@ -1,0 +1,99 @@
+// O(1)
+// will not work if last node has to be deleted
+#include <iostream>
+using namespace std;
+class linklist
+{
+	struct Node
+	{
+		Node *next;
+		int data;
+	}*head;
+
+public:
+	void addElem(int num);
+	void deleteMidElement(int k);
+	void display();
+	linklist();
+
+};
+
+void linklist::display()
+{
+	Node *temp = head;
+	while (temp != NULL) {
+		
+		cout << temp->data << " "; 
+		temp = temp->next;
+	}
+}
+
+linklist::linklist()
+{
+	head = NULL;
+}
+
+void linklist::addElem(int num)
+{
+	Node *temp = new Node;
+	temp->data = num;
+	temp->next = NULL;
+	if (head == NULL)
+		head = temp;
+	else {
+		temp->next = head;
+		head = temp;
+	}
+	
+}
+
+void linklist::deleteMidElement(int k)
+{
+	Node *temp = head;
+
+
+	for (int i = 0; i < k-1; i++)
+		temp = temp->next;
+	cout << endl<< temp->data<< endl;
+	temp->data = temp->next->data;
+	temp->next = temp->next->next;
+
+}
+
+int main()
+{
+	bool choice = true;
+	int ch, num;
+	linklist l1;
+	while (choice)
+	{
+		cout << "\nEnter the element in the linklist\n";
+		cout << "display\n";
+		cout << "delete the kth element\n";
+		cout << "Enter the choice\n";
+		cin >> ch;
+		switch (ch)
+		{
+		case 1:
+			cout << "\nEnter the number\n";
+			cin >> num;
+			l1.addElem(num);
+			break;
+		case 2:
+			cout << "\ndisplay\n";
+			l1.display();
+			break;
+		case 3:
+			cout << "\ndelete\n";
+			int k;
+			cin >> k;
+			l1.deleteMidElement(k);
+			break;
+		case 4:
+			choice = false;
+		default:
+			exit(0);
+		}
+	}
+
+}
