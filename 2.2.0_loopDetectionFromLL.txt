@@ -1,0 +1,136 @@
+// Apply fllyod loop detection algorithm
+
+#include <iostream>
+using namespace std;
+
+class linklist
+{
+	struct Node
+	{
+		Node *next;
+		int data;
+	}*head;
+
+public:
+	void addElem(int);
+	void display();
+	void loopFind();
+	void makeLoop();
+	linklist();
+};
+
+void linklist::addElem(int num)
+{
+	Node *temp = new Node;
+	temp->data = num;
+	temp->next = NULL;
+	if (head == NULL)
+		head = temp;
+	else
+	{
+		Node *temp1 = head;
+		while (temp1->next != NULL)
+			temp1 = temp1->next;
+		temp1->next = temp;
+	}
+}
+
+void linklist::makeLoop()
+{
+	Node *temp2 = head->next->next->next->next;
+	Node *temp = head;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = temp2;
+}
+void linklist::display()
+{
+	Node *temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->data << " ";
+		temp = temp->next;
+	}
+}
+
+void linklist::loopFind()
+{
+	// find a pointer in the loop
+	int t = 1;
+	Node *slow = head;
+	Node *fast = head;
+	while (slow && fast && fast->next)
+	{
+		slow = slow->next;
+		fast = fast->next->next;
+		if (slow == fast)
+		{
+			slow = slow->next;
+			while (slow != fast)
+			{
+				slow = slow->next;
+				t++;
+			}
+			Node *temp2 = head;
+			Node *temp3 = head;
+			for (int i = 0; i < t; i++)
+				temp2 = temp2->next;
+			while(temp2 != temp3)
+			{
+				temp2 = temp2->next;
+				temp3 = temp3->next;
+			}
+			cout << "Loop starts at" << temp3->data;
+
+		}
+	}
+
+}
+
+linklist::linklist()
+{
+	head = NULL;
+}
+
+int main()
+{
+	int choice = 1;
+	bool operate = true;
+	int num;
+	linklist l1;
+	while (operate)
+	{
+		cout << "\n1. Add Element\n";
+		cout << "2. Check loop starting\n";
+		cout << "3. Display\n";
+		cout << "4. Make Loop\n";
+		cout << "5. Exit\n";
+		cout << "Enter your choice\n";
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			cout << "Enter the number\n";
+			cin >> num;
+			l1.addElem(num);
+			break;
+		case 2:
+			cout << "Checking the loop starting position\n";
+			l1.loopFind();
+			break;
+		case 3:
+			l1.display();
+			break;
+		case 4: 
+			l1.makeLoop();
+			break;
+		case 5:
+			operate = false;
+			break;
+		default:
+			exit(0);
+		}
+	}
+
+
+}
