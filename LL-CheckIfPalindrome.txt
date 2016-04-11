@@ -1,0 +1,142 @@
+#include <iostream>
+using namespace std;
+
+class Linklist
+{
+	struct Node
+	{
+		Node *next;
+		int data;
+	}*head;
+
+public:
+	Linklist();
+	void addElem(int num);
+	void display();
+	bool isPalindrome();
+};
+
+bool Linklist::isPalindrome()
+{
+	//even
+	int flag = 0;
+	Node *slow = head;
+	Node *fast = head;
+	Node *old1 = NULL;
+	while (fast!= NULL)
+	{
+		old1 = slow;
+		slow = slow->next;
+		if (fast->next != NULL)
+		{
+			fast = fast->next->next;
+		}
+		else
+		{
+			flag = 1;
+			break;
+		}
+	}
+	old1->next = NULL;
+	Node *curr = slow;
+	Node *temp;
+	Node *old = NULL;
+	Node *head1 = curr;
+	while (curr != NULL)
+	{
+		temp = curr->next;
+		curr->next = old;
+		old = curr;
+		curr = temp;
+	}
+	curr = old;
+	Node *oldcurr = head;
+	if (flag == 0)
+	{
+		while (curr != NULL || oldcurr != NULL)
+		{
+			if (curr->data != oldcurr->data)
+				return false;
+			curr = curr->next;
+			oldcurr = oldcurr->next;
+		}
+	}
+	else
+	{
+		while (curr != NULL || oldcurr->next != NULL)
+		{
+			if (curr->data != oldcurr->data)
+				return false;
+			curr = curr->next;
+			oldcurr = oldcurr->next;
+		}
+	}
+	return true;
+
+}
+
+Linklist::Linklist()
+{
+	head = NULL;
+}
+
+void Linklist::display()
+{
+	Node *temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->data << " ";
+		temp = temp->next;
+	}
+}
+
+void Linklist::addElem(int num)
+{
+	Node *temp = new Node;
+	temp->data = num;
+	temp->next = NULL;
+	if (head == NULL)
+	{
+		head = temp;
+		return;
+	}
+	temp->next = head;
+	head = temp;
+
+}
+
+int main()
+{
+	bool operate = true;
+	int choice;
+	int num;
+	Linklist l1;
+	while (operate)
+	{
+		cout << "\n1. Add the element\n";
+		cout << "2. Check If palindrome\n";
+		cout << "3. Display\n";
+		cout << "4. Exit\n";
+		cout << "Enter your choice\n";
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			cout << "Enter the element\n";
+			cin >> num;
+			l1.addElem(num);
+			break;
+		case 2:
+			cout << "Check if palindrome\n";
+			l1.isPalindrome() ? cout << "Palindrome!!" : cout << "Not Palindrome!!";
+			break;
+		case 3:
+			l1.display();
+			break;
+		case 4:
+			exit(0);
+		default:
+			choice = false;
+		}
+	}
+}
