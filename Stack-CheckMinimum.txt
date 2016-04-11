@@ -1,0 +1,55 @@
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+int main()
+{
+	stack<int> s1;
+	stack<int> min_s1;
+	int ch;
+	int elem;
+	bool operate = true;
+	while (operate)
+	{
+		cout << "1. Push the element\n";
+		cout << "2. Pop the element\n";
+		cout << "3. Check Minimum\n";
+		cout << "4. Exit\n";
+		cout << "Enter the choice";
+		cin >> ch;
+		switch (ch)
+		{
+		case 1:
+			cout << "Enter the element";
+			cin >> elem;
+			s1.push(elem);
+			if (min_s1.empty())
+				min_s1.push(elem);
+			else if (min_s1.top() > elem)
+				min_s1.push(elem);
+			break;
+		case 2:
+			if (min_s1.top() == s1.top())
+			{
+				s1.pop();
+				min_s1.pop();
+			}
+			else
+			{
+				s1.pop();
+			}
+			break;
+		case 3:
+			cout << min_s1.top();
+			break;
+		case 4:
+			exit(0);
+		default:
+			operate = false;
+			break;
+		}
+	}
+
+
+}
